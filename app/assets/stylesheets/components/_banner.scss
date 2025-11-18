@@ -1,8 +1,24 @@
 .banner {
-  height: 500px;
+  height: 600px;
   background-size: cover;
   background-position: center;
   padding: 150px 0;
   background-image: image-url("castle_tunnel.jpg");
-
+  transition: background-image 0.5s ease-in-out;
+}
+.banner-show {
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  padding: 150px 0;
+  background-image: image-url("castle_tunnel.jpg");
+}
+.banner::before {
+  height: 500px;
+  background-size: cover;
+  background-position: -20px;
+  background-image: inherit; /* sync with banner */
+  transition: opacity 0.5s ease-in-out;
+  z-index: -1;
+  opacity: 1;
 }
