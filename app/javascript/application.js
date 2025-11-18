@@ -3,3 +3,6 @@ import "@hotwired/turbo-rails"
 import "controllers"
 import "@popperjs/core"
 import "bootstrap"
+
+import StoriesController from 'app/javascript/controllers/stories_controller.js'
+Stimulus.register('stories', StoriesController)

@@ -1,10 +1,26 @@
-<div class="container mt-3">
-  <h1>New story</h1>
-  <%= simple_form_for @story do |f| %>
-    <%= f.input :age %>
-    <%= f.input :theme %>
-    <%= f.input :character, collection: current_user.characters, include_blank: false %>
-    <%= f.submit "Start your adventure!", class: 'btn btn-primary' %>
-  <% end %>
-  <%= link_to "Create a character", new_character_path  %>
+<div class="banner"></div>
+<div class="container mt-3 d-flex justify-content-center">
+  <div class="tabs" data-controller="stories">
+    <%= simple_form_for @story do |f| %>
+      <div class="d-flex">
+        <div class="tab-3">
+          <label for="tab3-1">Age</label>
+          <input id="tab3-1" name="tabs-three" type="radio" checked="checked">
+          <%= f.input :age %>
+        </div>
+        <div class="tab-3">
+          <label for="tab3-2">Theme</label>
+          <input id="tab3-2" name="tabs-three" type="radio">
+          <%= f.input :theme %>
+        </div>
+        <div class="tab-3">
+          <label for="tab3-3">Character</label>
+          <input id="tab3-3" name="tabs-three" type="radio">
+          <%= f.input :character, collection: current_user.characters, include_blank: false %>
+          <%= link_to "Or create a new character", new_character_path, class: 'btn btn-primary'  %>
+          <%= f.submit "Start your adventure!", class: 'btn btn-primary' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>

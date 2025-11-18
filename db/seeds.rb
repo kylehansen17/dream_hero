@@ -1,3 +1,4 @@
+
 DEFAULT_TITLE = "untitled"
 
 puts "Cleaning database..."
