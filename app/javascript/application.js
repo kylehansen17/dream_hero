@@ -4,6 +4,7 @@ import "controllers"
 import "@popperjs/core"
 import "bootstrap"
 
+
 document.addEventListener("turbo:load", () => {
   const banner = document.querySelector(".banner");
   const tab1 = document.getElementById("tab2-1");
@@ -27,3 +28,7 @@ document.addEventListener("turbo:load", () => {
     }
   });
 });
+=======
+import StoriesController from 'app/javascript/controllers/stories_controller.js'
+Stimulus.register('stories', StoriesController)
+
