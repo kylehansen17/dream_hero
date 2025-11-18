@@ -1,5 +1,5 @@
 class MessagesController < ApplicationController
-  def create
+    def create
     @chat = current_user.chats.find(params[:chat_id])
     @story = @chat.story
     @message = Message.new(message_params)
@@ -9,11 +9,11 @@ class MessagesController < ApplicationController
       ruby_llm_chat = RubyLLM.chat
       response = ruby_llm_chat.with_instructions(instructions).ask(@message.content)
       Message.create(role: "assistant", content: response.content, chat: @chat)
-      redirect_to chat_messages_path(@chat)
+      redirect_to chat_path(@chat)
     else
       render "chat/show", status: :unprocessable_entity
     end
-  end
+    end
   private
 
   def instructions
