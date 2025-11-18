@@ -4,5 +4,5 @@ class Story < ApplicationRecord
   has_many :messages, through: :chats
   has_one :story_character
   has_one :character, through: :story_character
-  validates :age, presence: :true
+  validates :age, presence: true
 end
