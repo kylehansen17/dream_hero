@@ -53,6 +53,7 @@ gem "sassc-rails"
 #Manually added gems
 
 gem "devise"
+gem "ruby_llm", "~> 1.6.4"
 
 group :development, :test do
   gem "dotenv-rails"
