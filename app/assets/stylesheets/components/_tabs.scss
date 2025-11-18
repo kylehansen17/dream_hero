@@ -101,3 +101,17 @@ select:focus {
       margin-left: 100%; }
     .tabs .tab-2:last-child [type="radio"]:checked + div {
       margin-left: -100%; }
+/* Make labels only as tab buttons and not block the content */
+.tabs label {
+  display: inline-block;
+  cursor: pointer;
+  z-index: 10; /* ensure labels are above other labels */
+  position: relative; /* avoid overlaying tab content */
+}
+
+/* Ensure tab content is clickable */
+.tabs > div {
+  position: relative;
+  z-index: 1; /* lower than labels but above background */
+  pointer-events: auto;
+}
