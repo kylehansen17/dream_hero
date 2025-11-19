@@ -1,4 +1,14 @@
-<div class="banner"></div>
-<div class="button-container d-flex justify-content-center mt-4">
-  <%= link_to "Create a new story", new_story_path, class: "btn btn-success rounded-pill me-2" %>
+<div class="banner-home text-center">
+  <div class="logo-picture">
+    <%= image_tag "Item_Tuskpir.webp", alt: "Tuskpir character from Honkai Star Rail"%>
+  </div>
+  <div class="logo-text">
+    <h1>Dream Hero</h1>
+  </div>
+  <div class="slogan">
+    <h2>Discover new worlds</h2>
+  </div>
+  <div class="button-container mt-4">
+    <%= link_to "Start a New Adventure", new_story_path, class: "btn btn-success rounded-pill me-2" %>
+  </div>
 </div>

@@ -1,1 +1,33 @@
 // Specific CSS for your home-page
+.banner-home {
+  height: 100vh;
+  width: 100vw;
+  background-size: cover;
+  background-position: center;
+  padding: 150px 0;
+  background-image:
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.65), rgba(0,0,0, 0.35)),
+    image-url("home_splash.avif");
+  transition: background-image 0.5s ease-in-out;
+}
+
+h1 {
+  color: white;
+  font-size: 100px;
+}
+
+h2 {
+  color: white;
+  font-size: 35px;
+}
+
+img {
+  height: 150px;
+  width: 150px;
+}
+
+.btn {
+  padding: 0.95rem 1.5rem;
+  font-size: 1.2rem;
+  min-width: 200px;
+}
