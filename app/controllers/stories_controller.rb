@@ -4,6 +4,7 @@ class StoriesController < ApplicationController
     @stories = Story.all
     @front_story = Story.last
     @feature_stories = Story.where.not(id: @front_story.id)
+    @character = Character.new
   end
 
   def show

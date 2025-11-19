@@ -4,9 +4,9 @@ import "controllers"
 import "@popperjs/core"
 import "bootstrap"
 
-import RemovableController from "./controllers/removable_controller.js"
-const application = Application.start()
-application.register("removable", RemovableController)
+// import RemovableController from "./controllers/removable_controller.js"
+// const application = Application.start()
+// application.register("removable", RemovableController)
 
 document.addEventListener("turbo:load", () => {
   const banner = document.querySelector(".banner");
