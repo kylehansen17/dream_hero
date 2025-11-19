@@ -11,13 +11,13 @@
             </div>
             <div class="card-product-infos col-md-6">
               <h2><%= @story.name %></h2>
-              <p><%= @message %></p>
+             <p><%= @story.summary || "No story content yet." %></p>
             </div>
           </div>
   </div>
   <div class="button-container d-flex justify-content-evenly">
       <%= link_to "Re-read this story", chat_path(@story), class: "btn btn-success rounded-pill me-2" %>
-      <%= link_to "Continue this story...", chat_path(@story), class: "btn btn-success rounded-pill me-2" %>
+      <%= link_to "Continue this story...", continue_story_path(@story), class: "btn btn-success rounded-pill me-2" %>
   </div>
 </div>
 
