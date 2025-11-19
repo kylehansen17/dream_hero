@@ -1,0 +1,6 @@
+<%= simple_form_for @character do |f| %>
+  <%= f.input :name, label: "Name", required: true, placeholder: "" %>
+  <%= f.input :occupation, label: "Occupation", required: true, placeholder: "" %>
+  <%= f.input :likes, label: "Likes", required: true, placeholder: "" %>
+  <%= f.button :submit, 'Create Character', class: 'btn btn-primary' %>
+<% end %>

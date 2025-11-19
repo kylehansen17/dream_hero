@@ -1,5 +1,5 @@
 class MessagesController < ApplicationController
-  def create
+    def create
     @chat = current_user.chats.find(params[:chat_id])
     @story = @chat.story
     @message = Message.new(message_params)
@@ -18,12 +18,43 @@ class MessagesController < ApplicationController
 
   private
 
-  def instructions
-    prompt = "You are a master storyteller and know many bedtime stories that make kids happy and help them go to sleep and have good dreams. I am a child that is #{@story.age} years old that wants to go to sleep. The theme is #{@story.theme}. Make up the characters on your own.\n\nTell me a good bedtime story in 5 blocks, where I can choose my own adventure at key points in between each story block. Each block should be 5 lines. Stop the story at these key points and present me with three branching paths. Provide the following content in markdown: story_content as a string that contains the current story information, path_a which is a string for the first path, path_b which is a string for the second path, path_c which is a string for the third path."
+  # def instructions
+  #   prompt = "You are a master storyteller and know many bedtime stories that make kids happy and help them go to sleep and have good dreams. I am a child that is #{@story.age} years old that wants to go to sleep. The theme is #{@story.theme}. Make up the characters on your own.\n\nTell me a good bedtime story in 5 blocks, where I can choose my own adventure at key points in between each story block. Each block should be 5 lines. Stop the story at these key points and present me with three branching paths. Provide the following content in markdown: story_content as a string that contains the current story information, path_a which is a string for the first path, path_b which is a string for the second path, path_c which is a string for the third path."
 
-    # story_context = "Here is the context of the story: #{@story.content}."
-    [prompt, @story.system_prompt].compact.join("\n\n")
+  #   # story_context = "Here is the context of the story: #{@story.content}."
+  #   [prompt, @story.system_prompt].compact.join("\n\n")
+  # end
+
+  def instructions
+  story_context = <<~TXT
+    STORY CONTEXT:
+    - Age: #{@story.age}
+    - Theme: #{@story.theme}
+    - Character: #{@story.character}
+  TXT
+
+  base_prompt = <<~PROMPT
+    You are a master storyteller who creates bedtime stories for children.
+    The listener is #{@story.age} years old.
+    The theme is #{@story.theme}.
+    Make up characters on your own.
+
+    Tell a bedtime story in **5 blocks**, each block exactly **5 lines**.
+    After each block, stop and provide **three branching paths**:
+    - path_a
+    - path_b
+    - path_c
+
+    Output MUST be valid Markdown with the fields:
+    - story_content (string)
+    - path_a (string)
+    - path_b (string)
+    - path_c (string)
+  PROMPT
+
+  "#{story_context}\n#{base_prompt}"
   end
+
 
   def message_params
     params.require(:message).permit(:content)

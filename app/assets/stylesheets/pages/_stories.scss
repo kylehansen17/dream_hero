@@ -1,0 +1,9 @@
+html, body {
+  height: 100%;         /* Full height for flex layout */
+  margin: 0;            /* Remove default margin */
+}
+
+body {
+  display: flex;         /* Flex layout for body */
+  flex-direction: column;/* Stack content vertically */
+}
