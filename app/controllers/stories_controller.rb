@@ -9,7 +9,10 @@ class StoriesController < ApplicationController
   def show
     @story = Story.find(params[:id])
     @response = @story.messages.where(role: "assistant")
-    @message = @response.first.content
+    @message = RubyLLM.chat.with_instructions([
+      { role: "system", content: summarize(@response), temperature: 0.9 }
+    ])
+
   end
 
   def new
@@ -69,6 +72,13 @@ class StoriesController < ApplicationController
     - path_a
     - path_b
     - path_c
+  PROMPT
+  end
+
+  def summarize(long_story)
+    <<~PROMPT
+    You are a magazine article writer.
+    Summarize the story from #{long_story} in no more than 5 lines.
   PROMPT
   end
 end
