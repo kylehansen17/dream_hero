@@ -1,0 +1,59 @@
+// CSS FOR ACTUAL CHAT PAGE FOR STORY
+.banner-chat-show {
+  // --- BACKGROUND STYLES ---
+  // Note: Using 'image-url' is the correct way to reference assets in Rails SCSS
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)),
+    image-url('unnamed.jpg');
+
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  display: grid;
+  justify-content: center;
+
+  // --- GLOBAL STYLES WITHIN BANNER ---
+
+  #chat-title {
+    font-size: 50px;
+    color: white;
+  }
+
+  #main-content {
+    display: grid;
+    justify-items: center;
+    align-content: center;
+  }
+
+  // Hides the 'strong' text only within this banner, preventing global conflicts
+  strong {
+    visibility: hidden;
+  }
+
+  // --- FORM INPUT STYLES (Fixed Responsiveness) ---
+  .form-control {
+    // CRITICAL FIX: Use max-width for responsiveness, and width: 100%
+    // to ensure it fills its parent container on small screens.
+    max-width: 500px;
+    width: 100%;
+  }
+
+  // --- PARAGRAPH STYLES ---
+  p {
+    color: white;
+
+    // FIX: Using left align is generally better for readability than justify
+    text-align: left;
+    max-width: 800px; /* Optional: Limit width for better reading flow */
+
+    // Placeholder for animation (Uncomment and define keyframes when ready)
+    // animation: fadeIn 2s ease-in-out;
+
+    // Placeholder for background card
+    // background-color: rgba(0, 0, 0, 0.5);
+    // padding: 1rem;
+    // border-radius: 8px;
+  }
+}
