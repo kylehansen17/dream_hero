@@ -4,7 +4,6 @@ class StoriesController < ApplicationController
     @stories = Story.all
     @front_story = Story.last
     @feature_stories = Story.where.not(id: @front_story.id)
-    @character = Character.new
   end
 
   def show
@@ -39,6 +38,7 @@ class StoriesController < ApplicationController
 
   def new
     @story = Story.new
+    @character = Character.new
   end
 
   def create
