@@ -9,7 +9,7 @@ class StoriesController < ApplicationController
 
   def show
     @story = Story.find(params[:id])
-    @response = @story.messages.where(role: "assistant")
+    @response = @story.messages.where(role: "assistant").last
     @message = @response.first.content
   end
 
