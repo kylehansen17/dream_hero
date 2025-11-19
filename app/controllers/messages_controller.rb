@@ -6,14 +6,15 @@ class MessagesController < ApplicationController
     @message.chat = @chat
     @message.role = "user"
     if @message.save
-      ruby_llm_chat = RubyLLM.chat
-      response = ruby_llm_chat.with_instructions(instructions).ask(@message.content)
-      Message.create(role: "assistant", content: response.content, chat: @chat)
-      redirect_to chat_path(@chat)
+      @chat.with_instructions(instructions).ask(@message.content)
+      respond_to do |format|
+        format.html { redirect_to chat_path(@chat) }
+        format.turbo_stream { render 'create' }
+      end
     else
       render "chat/show", status: :unprocessable_entity
     end
-    end
+  end
 
   private
 
