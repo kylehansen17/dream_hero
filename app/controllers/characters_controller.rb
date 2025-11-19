@@ -3,15 +3,17 @@ class CharactersController < ApplicationController
     @character = Character.new(character_params)
     @character.user = current_user
     if @character.save
-      html_content = "<p>Character was created successfully!</p>".html_safe
-      respond_to do |format|
-        format.turbo_stream { render turbo_stream: turbo_stream.update("new_character", html: html_content) }
-      end
+      redirect_to new_story_path, notice: "Character was created successfully!"
     else
       respond_to do |format|
         format.turbo_stream { render turbo_stream: turbo_stream.update("new_character", partial: "characters/form", locals: { character: @character}) }
       end
     end
+
+  end
+
+  def show
+    @character = Character.find(params[:id])
   end
 
   private
