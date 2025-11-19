@@ -8,6 +8,8 @@ class StoriesController < ApplicationController
 
   def show
     @story = Story.find(params[:id])
+    @response = @story.messages.where(role: "assistant")
+    @message = @response.first.content
   end
 
   def new

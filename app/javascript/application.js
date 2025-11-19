@@ -28,7 +28,7 @@ document.addEventListener("turbo:load", () => {
     }
   });
 });
-=======
-import StoriesController from 'app/javascript/controllers/stories_controller.js'
-Stimulus.register('stories', StoriesController)
 
+//TODO IMPORT THE STIMULUS WITH ITS OWN PAGE
+// import StoriesController from 'app/javascript/controllers/stories_controller.js'
+// Stimulus.register('stories', StoriesController)
