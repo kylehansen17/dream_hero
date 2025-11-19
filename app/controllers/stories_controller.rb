@@ -19,6 +19,7 @@ class StoriesController < ApplicationController
     @story.character = Character.find(story_params[:character])
     @story.user = current_user
     if @story.save
+      # change path to chats show page
       redirect_to story_path(@story)
     else
       render :new, status: :unprocessable_entity
