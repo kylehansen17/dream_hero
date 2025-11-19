@@ -1,85 +1,85 @@
-<div class="banner"></div>
-<div class="container mt-3 d-flex justify-content-center">
-  <div class="tabs" data-controller="stories">
-    <%= simple_form_for @story do |f| %>
-      <div class="d-flex">
-        <div class="tab-3">
-          <label for="tab3-1">Age</label>
-          <input
-            id="tab3-1"
-            name="tabs-three"
-            type="radio"
-            checked="checked"
-          >
-            <%= f.input :age %>
+<%# find style in _stories.scss %>
+<div class="banner-new-story">
+  <h1 class="text-center">A New Tale Begins...</h1>
+  <div class="container d-flex justify-content-center">
+    <div class="tabs" data-controller="stories">
+      <%= simple_form_for @story do |f| %>
+        <div class="story-form-card">
+          <div class="row g-4 mb-4 justify-content-center">
+            <%# CARD 1: AGE %>
+            <div class="col-lg-4 col-md-6 col-10">
+              <%# <label for="tab3-1">Age</label> %>
+              <%# <input id="tab3-1" name="tabs-three" type="radio" checked="checked"%>
+              <%= f.input :age, label: "How old are you?" %>
+            </div>
+            <%# CARD 2: THEME %>
+            <div class="col-lg-4 col-md-6 col-10">
+              <%# <label for="tab3-2">Theme</label> <%# input id="tab3-2" name="tabs-three" type="radio"> %>
+              <%= f.input :theme, label: "What is your story's theme?" %>
+            </div>
+            <%# CARD 3: CHARACTER %>
+            <div class="col-lg-4 col-md-6 col-10">
+              <%# <div class="tab-3">
+            <%#label for="tab3-3">Character</label>
+            <%#input id="tab3-3" name="tabs-three" type="radio"> %>
+              <%= f.input :character, collection: current_user.characters, include_blank: false, label: "Do you have a character?" %>
+            </div>
           </div>
-          <div class="tab-3">
-            <label for="tab3-2">Theme</label>
-            <input id="tab3-2" name="tabs-three" type="radio">
-            <%= f.input :theme %>
-          </div>
-          <div class="tab-3">
-            <label for="tab3-3">Character</label>
-            <input id="tab3-3" name="tabs-three" type="radio">
-            <%= f.input :character, collection: current_user.characters, include_blank: false %>
-            <%# = link_to "Or create a new character", new_character_path, class: 'btn btn-primary' %>
-            <%= f.submit "Start your adventure!", class: 'btn btn-primary' %>
-          </div>
+          <%# = link_to "Or create a new character", new_character_path, class: 'btn btn-primary' %>
+          <div class="button-row d-grid justify-content-center gap-4 mt-4">
+            <%= f.submit "Step into your story", class: 'btn btn-primary order-2 rounded-pill' %>
+          <% end %>
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-warning order-1 rounded-pill" data-bs-toggle="modal" data-bs-target="#characterModal">Create a new character</button>
         </div>
-      <% end %>
-      <!-- Button trigger modal -->
-      <button
-      type="button"
-      class="btn btn-primary"
-      data-bs-toggle="modal"
-      data-bs-target="#characterModal"
-    >
-        Create a new character
-      </button>
-      <!-- Modal -->
-      <div
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div
       class="modal fade"
       id="characterModal"
       tabindex="-1"
       aria-labelledby="characterModalLabel"
       aria-hidden="true"
     >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="characterModalLabel">
-                Input character traits
-              </h1>
-              <button
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5 text-dark" id="characterModalLabel">
+          Tell us about your character
+        </h1>
+        <button
               type="button"
               class="btn-close"
               data-bs-dismiss="modal"
               aria-label="Close"
             ></button>
-            </div>
-            <div class="modal-body">
-              <div id="new_character">
-                <%= simple_form_for @character do |f| %>
-                  <%= f.input :name, label: "Name", required: true, placeholder: "" %>
-                  <%= f.input :occupation, label: "Occupation", required: true, placeholder: "" %>
-                  <%= f.input :likes, label: "Likes", required: true, placeholder: "" %>
-                  <div class="modal-footer">
-                    <button
+      </div>
+      <div class="modal-body">
+        <div id="new_character">
+          <%= simple_form_for @character do |f| %>
+            <%= f.input :name, label: "Name", required: true, placeholder: "" %>
+            <%= f.input :occupation, label: "Occupation", required: true, placeholder: "" %>
+            <%= f.input :likes, label: "Likes", required: true, placeholder: "" %>
+            <div class="modal-footer">
+              <button
                     type="button"
                     class="btn btn-secondary"
                     data-bs-dismiss="modal"
                   >
-                      Cancel
-                    </button>
-                    <%# submit button %>
-                    <%# = f.submit "Create", class: "btn btn-primary" %>
-                    <%= f.button :submit, 'Create Character', class: 'btn btn-primary' %>
-                  </div>
-                <% end %>
-              </div>
+                Cancel
+              </button>
+              <%# submit button %>
+              <%# = f.submit "Create", class: "btn btn-primary" %>
+              <%= f.button :submit, 'Create Character', class: 'btn btn-primary' %>
             </div>
-          </div>
+          <% end %>
         </div>
       </div>
     </div>
   </div>
+</div>
+</div>
+</div>

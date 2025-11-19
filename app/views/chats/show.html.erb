@@ -1,10 +1,13 @@
-<%= link_to "← #{@chat.story.name}", story_path(@chat.story) %>
-<h1 id="chat_title"><%= @chat.title %></h1>
-<div id="messages">
-  <%= render 'messages/messages', messages: @chat.messages %>
-</div>
-<div id="new_message_container"
+<%# THIS IS THE CHAT PAGE (INTERACTIVE STORY PAGE) %>
+<div class="banner-chat-show">
+  <h1 id="chat-title"><%= @chat.story.name %></h1>
+  <div id="messages">
+    <%= render 'messages/messages', messages: @chat.messages %>
+  </div>
+  <div id="new-message-container"
      data-controller="removable"
      data-message-count="<%= @chat.messages.count %>">
-  <%= render 'messages/form', chat: @chat, message: @message %>
+    <%= render 'messages/form', chat: @chat, message: @message %>
+  </div>
+  <%= link_to "← Exit (To Story Details)", story_path(@chat.story) %>
 </div>
