@@ -71,9 +71,9 @@ class StoriesController < ApplicationController
     @story.update(name: title_response.content)
 
 
-    #image = RubyLLM.paint("A storybook painting based on the following text #{@story.summary}.")
 
-    #@story.update(image: image)
+
+
 
 
       redirect_to chat_path(chat)
@@ -115,17 +115,17 @@ class StoriesController < ApplicationController
     Occupation: #{story.character.occupation}.
     Likes: #{story.character.likes}.
 
-    Create a bedtime story in **5 blocks**, each block exactly 15 lines.
+    Create a bedtime story in **5 blocks**, each block exactly 8 lines.
     After each block, stop and provide **three choices**:
-    - path_a
-    - path_b
-    - path_c
+    A (display the choice)
+    B (display the choice)
+    C (display the choice)
 
     Output in Markdown with:
     - story_content
-    - path_a (display the path information here)
-    - path_b (display the path information here)
-    - path_c (display the path information here)
+    A: (display the path information here)
+    B: (display the path information here)
+    C: (display the path information here)
   PROMPT
   end
 end
