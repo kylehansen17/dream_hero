@@ -8,9 +8,33 @@ class StoriesController < ApplicationController
   end
 
   def show
-    @story = Story.find(params[:id])
-    @response = @story.messages.where(role: "assistant").last
-    @message = @response.first.content
+  @story = current_user.stories.find(params[:id])
+
+  # Get the first (or last) chat
+  @chat = @story.chats.first
+
+  # All messages from that chat
+  @messages = @chat&.messages || []
+
+  # Only assistant messages
+  @assistant_messages = @messages.select { |m| m.role == "assistant" }
+
+  # Example: get the last assistant message
+  @last_assistant_message = @assistant_messages.last&.content
+  if @last_assistant_message.present?
+    system_prompt = summarize(@last_assistant_message)
+
+  # Create a chat client with system instructions
+    client = RubyLLM.chat.with_instructions([
+      { role: "system", content: system_prompt, temperature: 0.9 }
+    ])
+
+  # Ask the LLM to generate the summary
+    summary_response = client.ask("Summarize the story")
+    @summary = summary_response.content
+  else
+    @summary = "No story content yet."
+  end
   end
 
   def new
@@ -35,12 +59,44 @@ class StoriesController < ApplicationController
       role: "assistant",
       content: assistant_message
     )
+    summary_prompt = summarize(assistant_message)
+    summary_client = RubyLLM.chat.with_instructions([
+      { role: "system", content: summary_prompt, temperature: 0.9 }
+    ])
+    summary_response = summary_client.ask("Summarize the story")
+    @story.update(summary: summary_response.content)
+
+    title_client = RubyLLM.chat
+    title_response = title_client.ask("Generate a story title from the following summary #{@story.summary}")
+    @story.update(name: title_response.content)
+
+
+    #image = RubyLLM.paint("A storybook painting based on the following text #{@story.summary}.")
+
+    #@story.update(image: image)
+
+
       redirect_to chat_path(chat)
     else
       render :new, status: :unprocessable_entity
     end
   end
+  def continue
+  # Find the story first
+  story = current_user.stories.find(params[:id])
 
+  # Get the first chat (or the chat you created)
+  chat = story.chats.first # or .last if you prefer
+
+  redirect_to chat_path(chat)
+  end
+
+  def summarize(long_story)
+    <<~PROMPT
+    You are a magazine article writer.
+    Summarize the story from #{long_story} in no more than 5 lines.
+  PROMPT
+  end
 
   private
 
@@ -67,9 +123,9 @@ class StoriesController < ApplicationController
 
     Output in Markdown with:
     - story_content
-    - path_a
-    - path_b
-    - path_c
+    - path_a (display the path information here)
+    - path_b (display the path information here)
+    - path_c (display the path information here)
   PROMPT
   end
 end

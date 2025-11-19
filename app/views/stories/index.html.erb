@@ -24,7 +24,7 @@
               </div>
               <div class="col-6 card-product-infos">
                 <h2><%= @front_story.name %></h2>
-                <p><%= @front_story.chats %></p>
+                <p><%= @front_story.summary || "No story content yet." %></p>
               </div>
             </div>
           <% end %>
