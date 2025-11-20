@@ -1,22 +1,24 @@
 <div class="content-wrap">
-  <div class="banner-show-character"></div>
-
+  <div class="banner-show-character text-center text-white">Meet One of Our Dream Heroes</div>
   <div class="main-story container my-4 d-flex justify-content-center">
     <div class="card-product row align-items-center" style="max-width:900px;">
-      <div class="col-md-6" style="max-height:350px;">
-        <%= image_tag "hero.jpg", class: "img-fluid rounded card-product-img" %>
+      <div class="col-md-6">
+        <% story = @character.stories.first %>
+        <% if story && story.image.attached? %>
+          <%= image_tag story.image, class: "img-fluid d-block mx-auto" %>
+        <% else %>
+          <%= image_tag "hero.jpg", class: "img-fluid justify-content-center" %>
+        <% end %>
       </div>
-
-      <div class="card-product-infos col-md-6">
-        <h2 class="mb-3"><%= @character.name %>'s Profile</h2>
-        <h6>Occupation:</h6>
+      <div class="card-product-infos col-md-6 text-center">
+        <h1><%= @character.name %>'s Profile</h2>
+        <h2>Occupation:</h2>
         <p><%= @character.occupation %></p>
-        <h6>Likes:</h6>
-        <p><%= @character.likes %></p>
+        <h2>Likes:</h2>
+        <p><%= @character.likes%></p>
       </div>
     </div>
   </div>
-
   <div class="button-container d-flex justify-content-evenly">
     <button
       class="btn btn-success rounded-pill me-2"
@@ -27,49 +29,34 @@
     >
       Stories this character is in
     </button>
-
     <%= link_to "Use this character...", new_story_path(character_id: @character.id), class: "btn btn-success rounded-pill me-2" %>
   </div>
-
-  <footer class="footer bg-dark text-white py-3">
-    <div class="container text-center">
-      <%= link_to root_path do %>
-        <i class="fa-solid fa-house me-2"></i>
-      <% end %>
-      | &copy;
-      <%= Time.current.year %>
-      Kokai Soundworks
-    </div>
-  </footer>
-</div>
-
-<div
+  <div
   class="offcanvas offcanvas-start bg-warning-subtle"
   data-bs-scroll="true"
   tabindex="-1"
   id="offcanvasWithBothOptions"
   aria-labelledby="offcanvasWithBothOptionsLabel"
 >
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">
-      Stories this character is in
-    </h5>
-
-    <button
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">
+        Stories this character is in
+      </h5>
+      <button
       type="button"
       class="btn-close"
       data-bs-dismiss="offcanvas"
       aria-label="Close"
     ></button>
+    </div>
+    <div class="offcanvas-body">
+      <ul>
+        <% @character.stories.each do |story| %>
+          <li><%= link_to story.name, story_path(story) %></li>
+        <% end %>
+      </ul>
+    </div>
   </div>
-
-  <div class="offcanvas-body">
-    <ul>
-      <% @character.stories.each do |story| %>
-        <li><%= link_to story.name, story_path(story) %></li>
-      <% end %>
-    </ul>
+  <div class="mt-2">
+    <%= render "layouts/final_bottom_navbar" %>
   </div>
-<div>
-  <%= render "layouts/final_bottom_navbar" %>
-</div>

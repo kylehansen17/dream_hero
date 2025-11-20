@@ -83,7 +83,12 @@
           <% @characters.each do |character| %>
             <%= link_to character_path(character), class: "text-decoration-none" do %>
               <div class="card text-center text-white mx-2 mb-4 rounded-5 shadow-lg" style="width: 18rem;">
-                <%= image_tag "character_splash.jpg", class: "card-img story-img rounded-5 shadow", alt: "Placeholder" %>
+                <% story = character.stories.first %>
+                <% if story && story.image.attached? %>
+                  <%= image_tag story.image, class: "img-fluid d-block mx-auto rounded-5 shadow-lg" %>
+                <% else %>
+                  <%= image_tag "character_splash.jpg", class: "card-img story-img rounded-5 shadow", alt: "Placeholder" %>
+                <% end %>
                 <div class="card-img-overlay d-flex flex-column justify-content-center rounded-5" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.7));">
                   <div class="card-title">
                     <h5><%= character.name %></h5>
