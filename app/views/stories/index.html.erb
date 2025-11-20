@@ -39,8 +39,9 @@
           <%= link_to story_path(@front_story), class: "text-decoration-none" do %>
             <div class="card-product row align-items-center" style="max-width: 900px; width: 100%;">
               <div class="col-6">
-                <%= image_tag "fantasy_book.avif", class: "img-fluid rounded card-product-img" %>
+                <%= image_tag @front_story.image, class: "img-fluid mb-3" %>>
               </div>
+
               <div class="col-6 card-product-infos">
                 <h2><%= @front_story.name %></h2>
                 <p><%= @front_story.summary || "No story content yet." %></p>
@@ -53,8 +54,12 @@
             <div class="cards col-12 d-flex flex-wrap justify-content-center p-0">
               <% @feature_stories.each do |story| %>
                 <%= link_to story_path(story), class: "text-decoration-none" do %>
-                  <div class="card-category col-12 col-sm-6 col-md-4 text-center"
-                 style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= asset_path 'fantasy_book.avif' %>)">
+                  <div class="card-category col-12 col-sm-6 col-md-4 text-center">
+                    <% if story.image.attached? %>
+                    <%= image_tag story.image, class: "img-fluid rounded mb-2", alt: story.name %>
+                    <% else %>
+                    <%= image_tag "fantasy_book.avif", class: "img-fluid rounded mb-2", alt: "Placeholder" %>
+                    <% end %>
                     <%= story.name %>
                   </div>
                 <% end %>
