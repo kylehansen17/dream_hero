@@ -1,4 +1,8 @@
 class CharactersController < ApplicationController
+  def index
+    @characters = Character.all
+  end
+
   def create
     @character = Character.new(character_params)
     @character.user = current_user
