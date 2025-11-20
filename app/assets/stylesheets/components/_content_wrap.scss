@@ -56,7 +56,7 @@ body {
     to bottom,
 
     /* 2. Lighter color (start) - Represents the "light spot" */
-    #7d78a8 5%, /* Start light in the top-left corner */
+    rgb(125, 120, 168) 5%, /* Start light in the top-left corner */
 
     /* 3. Darker color (end) - Represents the shadow */
     #3b3a50 75%  /* Fade to dark across the rest of the screen */
