@@ -3,14 +3,14 @@
      data-banner-stories-image-value="<%= asset_path 'cloudy_sky2.avif' %>"
      data-banner-characters-image-value="<%= asset_path 'lantern.jpg' %>">
   <div class="banner position-relative" data-banner-target="banner">
-    <div class="d-flex justify-content-center align-items-center position-absolut banner-content">
+    <div class="d-flex justify-content-center align-items-center position-absolute banner-content">
       <%= image_tag "Item_Tuskpir.webp", alt: "Tuskipir character image", class: "tuskpir-image w-25" %>
       <h1 class="text-white text-center ms-3">
         Dream Hero
-      </h2>
+      </h1>
     </div>
   </div>
-  <div class="tabs">
+  <div class="tabs mb-0">
     <!-- Radio Inputs -->
     <input type="radio"
            id="tab2-1"
@@ -31,9 +31,9 @@
   </div>
 </div>
 <!-- Tab 1 content -->
-<div class="tab-content" id="content-tab1">
-  <div class="container d-flex flex-column align-items-center my-5">
-    <h4 class="text-center w-100">Pick up where you left off...</h4>
+<div class="tab-content pt-0" id="content-tab1" style="background-color: #756f9d;">
+  <div class="container d-flex flex-column align-items-center mb-5 mt-0">
+    <h4 class="text-center w-100 mt-4 text-white">Pick up where you left off...</h4>
     <div class="main-story container my-4 d-flex justify-content-center">
       <%= link_to story_path(@front_story), class: "text-dark" do %>
         <div class="card-product row align-items-center" style="max-width: 900px; width: 100%;">
@@ -48,7 +48,7 @@
       <% end %>
     </div>
     <div>
-      <h4 class="text-center w-100">Your Past Stories</h4>
+      <h4 class="text-center w-100 text-white m-2">Your Past Stories</h4>
     </div>
     <div class="container-fluid my-4">
       <div class="row align-items-center justify-content-start">
@@ -73,10 +73,11 @@
       </div>
     </div>
   </div>
+  <%= render "layouts/final_bottom_navbar" %>
 </div>
 <!-- Tab 2 content -->
 <div class="tab-content" id="content-tab2">
-  <div class="container d-flex flex-column align-items-center my-5">
+  <div class="container d-flex flex-column align-items-center">
     <div class="container-fluid my-4">
       <div class="row align-items-center justify-content-start">
         <div class="cards col-12 d-flex flex-wrap justify-content-center p-0">
@@ -101,7 +102,5 @@
       </div>
     </div>
   </div>
-</div>
-<div>
   <%= render "layouts/final_bottom_navbar" %>
 </div>
