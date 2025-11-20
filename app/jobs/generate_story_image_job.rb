@@ -8,7 +8,7 @@ class GenerateStoryImageJob < ApplicationJob
 
     begin
       image = RubyLLM.paint(
-        "Illustration for the story titled #{story.name} about #{story.theme} featuring #{story.character.name}, in an engaging style suitable for ages #{story.age}.",
+        "Illustration for the story titled #{story.name} about #{story.theme} featuring #{story.character.name}, in an engaging style suitable for readers aged #{story.age}.",
         model: "imagen-4.0-generate-preview-06-06"
       )
 

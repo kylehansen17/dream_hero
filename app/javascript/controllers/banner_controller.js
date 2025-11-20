@@ -8,16 +8,27 @@ export default class extends Controller {
   }
 
   connect() {
-    this.switch()   // set correct initial background + content
+    this.applyInitialTab()
+    this.switch()
+  }
+
+  applyInitialTab() {
+    const params = new URLSearchParams(window.location.search)
+    const tabParam = params.get("tab")
+
+    if (tabParam === "characters") {
+      this.tabCharactersTarget.checked = true
+    } else {
+      this.tabStoriesTarget.checked = true
+    }
   }
 
   switch() {
-    // Background switching
     if (this.tabStoriesTarget.checked) {
       this.bannerTarget.style.backgroundImage = `url('${this.storiesImageValue}')`
       this.showTab("content-tab1")
       this.hideTab("content-tab2")
-    } else if (this.tabCharactersTarget.checked) {
+    } else {
       this.bannerTarget.style.backgroundImage = `url('${this.charactersImageValue}')`
       this.showTab("content-tab2")
       this.hideTab("content-tab1")

@@ -5,12 +5,12 @@
     <% end %>
   </button>
   <button class="btn btn-primary btn-lg rounded-circle shadow-lg fab-button d-flex flex-column mt-3" type="button">
-    <%= link_to stories_path do %>
+    <%= link_to stories_path(tab: "stories") do %>
       <i class="fas fa-book nav-bar-button"></i>
     <% end %>
   </button>
   <button class="btn btn-primary btn-lg rounded-circle shadow-lg fab-button d-flex flex-column mt-3" type="button">
-    <%= link_to characters_path do %>
+    <%= link_to stories_path(tab: "characters") do %>
       <i class="fas fa-person nav-bar-button"></i>
     <% end %>
   </button>
