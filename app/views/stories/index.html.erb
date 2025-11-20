@@ -30,75 +30,73 @@
     </div>
   </div>
 </div>
-<!-- Tab 1 content -->
-<div class="tab-content pt-0" id="content-tab1" style="background-color: #756f9d;">
-  <div class="container d-flex flex-column align-items-center mb-5 mt-0">
-    <h4 class="text-center w-100 mt-4 text-white">Pick up where you left off...</h4>
-    <div class="main-story container my-4 d-flex justify-content-center">
-      <%= link_to story_path(@front_story), class: "text-dark" do %>
-        <div class="card-product row align-items-center" style="max-width: 900px; width: 100%;">
-          <div class="col-6">
-            <%= image_tag url_for(@front_story.image), class: "img-fluid" %>
+
+<div class="tab-content" id="content-tab1">
+  <div class="container d-flex flex-column align-items-center my-5">
+
+    <h4 class="text-center w-100 mb-4">Pick up where you left off...</h4>
+    <div class="main-story container mb-5 d-flex justify-content-center">
+      <%= link_to story_path(@front_story), class: "text-decoration-none w-100", style: "max-width: 900px;" do %>
+        <div class="card-product row align-items-center mx-0 shadow-sm">
+          <div class="col-6 p-0 h-100">
+            <% if @front_story.image.attached? %>
+               <%= image_tag @front_story.image,
+                   class: "img-fluid w-100 h-100",
+                   style: "object-fit: cover; min-height: 300px;",
+                   alt: @front_story.name %>
+            <% end %>
           </div>
-          <div class="col-6 card-product-infos">
-            <h2><%= @front_story.name %></h2>
-            <p><%= @front_story.summary || "No story content yet." %></p>
+          <div class="col-6 card-product-infos p-4">
+            <h4 class="text-dark"><%= @front_story.name %></h4>
+            <p class="text-muted small"><%= @front_story.summary || "No story content yet." %></p>
           </div>
         </div>
       <% end %>
     </div>
+
     <div>
-      <h4 class="text-center w-100 text-white m-2">Your Past Stories</h4>
+      <h4 class="text-center w-100 mb-4">Your Past Stories</h4>
     </div>
-    <div class="container-fluid my-4">
-      <div class="row align-items-center justify-content-start">
-        <div class="cards col-12 d-flex flex-wrap justify-content-center p-0">
-          <% @feature_stories.each do |story| %>
+
+    <div class="container my-4">
+      <div class="row justify-content-center">
+
+        <% @feature_stories.each do |story| %>
+
+          <div class="col-12 col-md-6 mb-5">
+
             <%= link_to story_path(story), class: "text-decoration-none" do %>
-              <div class="card text-center text-white mx-2 mb-4 rounded-5 shadow-lg" style="width: 18rem;">
+              <div class="card-category text-center h-100">
+
                 <% if story.image.attached? %>
-                  <%= image_tag url_for(story.image), class: "card-img story-img rounded-5 shadow", alt: story.name %>
+                  <%= image_tag story.image, class: "img-fluid rounded mb-2 card-img-fixed shadow-sm", alt: story.name %>
                 <% else %>
-                  <%= image_tag "fantasy_book.avif", class: "card-img story-img rounded-5 shadow", alt: "Placeholder" %>
+                  <%= image_tag "fantasy_book.avif", class: "img-fluid rounded mb-2 card-img-fixed shadow-sm", alt: "Placeholder" %>
                 <% end %>
-                <div class="card-img-overlay d-flex flex-column justify-content-center rounded-5" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.7));">
-                  <div class="card-title">
-                    <h5><%= story.name %></h5>
-                  </div>
+
+                <div class="story-title mt-3 text-dark">
+                  <h6 class="text-uppercase fw-bold small" style="letter-spacing: 1px;">
+                    <%= story.name %>
+                  </h6>
                 </div>
+
               </div>
             <% end %>
-          <% end %>
-        </div>
+
+          </div>
+        <% end %>
+
       </div>
     </div>
+
   </div>
   <%= render "layouts/final_bottom_navbar" %>
 </div>
-<!-- Tab 2 content -->
-<div class="tab-content" id="content-tab2">
-  <div class="container d-flex flex-column align-items-center">
-    <div class="container-fluid my-4">
-      <div class="row align-items-center justify-content-start">
-        <div class="cards col-12 d-flex flex-wrap justify-content-center p-0">
-          <% @characters.each do |character| %>
-            <%= link_to character_path(character), class: "text-decoration-none" do %>
-              <div class="card text-center text-white mx-2 mb-4 rounded-5 shadow-lg" style="width: 18rem;">
-                <% story = character.stories.first %>
-                <% if story && story.image.attached? %>
-                  <%= image_tag story.image, class: "img-fluid d-block mx-auto rounded-5 shadow-lg" %>
-                <% else %>
-                  <%= image_tag "character_splash.jpg", class: "card-img story-img rounded-5 shadow", alt: "Placeholder" %>
-                <% end %>
-                <div class="card-img-overlay d-flex flex-column justify-content-center rounded-5" style="background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.7));">
-                  <div class="card-title">
-                    <h5><%= character.name %></h5>
-                  </div>
-                </div>
-              </div>
-            <% end %>
-          <% end %>
-        </div>
+    <!-- Tab 2 content -->
+    <div class="tab-content" id="content-tab2">
+      <div class="container d-flex flex-column align-items-center my-5">
+        <h4>Characters</h4>
+        <p>Character List..</p>
       </div>
     </div>
   </div>
