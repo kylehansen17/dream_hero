@@ -8,6 +8,7 @@ class StoriesController < ApplicationController
     @front_story = Story.last
     @feature_stories = Story.where.not(id: @front_story.id)
     @character = Character.new
+    @characters = Character.all
   end
 
   def show
@@ -42,7 +43,14 @@ class StoriesController < ApplicationController
 
   def new
     @story = Story.new
-    @character = Character.new
+    character_id = params[:character_id]
+    if character_id.present?
+      character = Character.find_by(id: character_id)
+      @story.character = character if character.present?
+      @character = Character.new
+    else
+      @character = Character.new
+    end
   end
 
   def create
@@ -75,13 +83,23 @@ class StoriesController < ApplicationController
     title_response = title_client.ask("Generate a story title from the following summary #{@story.summary}")
     @story.update(name: title_response.content)
 
+  # Generate the image
+# image = RubyLLM.paint(
+#   "Illustration for the story titled #{@story.name} about #{@story.theme} featuring #{@story.character.name}, in an engaging style suitable for ages #{@story.age}.",
+#   model: "imagen-4.0-generate-preview-06-06"
+# )
+# filename = "#{@story.name.parameterize}-illustration.png"
+# image_io = StringIO.new(image.to_blob)
 
+#     @story.image.attach(
+#     io: image_io,
+#     filename: filename,
+#     content_type: image.mime_type || 'image/png' # Use detected MIME type or default
+#   )
 
+    GenerateStoryImageJob.perform_later(@story.id)
 
-
-
-
-      redirect_to chat_path(chat)
+   redirect_to chat_path(chat)
     else
       render :new, status: :unprocessable_entity
     end

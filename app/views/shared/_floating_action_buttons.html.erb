@@ -1,0 +1,17 @@
+<div class="fab-container">
+  <button class="btn btn-primary btn-lg rounded-circle shadow-lg fab-button d-flex flex-column mt-3" type="button">
+    <%= link_to new_story_path do %>
+      <i class="fas fa-book-open nav-bar-button"></i>
+    <% end %>
+  </button>
+  <button class="btn btn-primary btn-lg rounded-circle shadow-lg fab-button d-flex flex-column mt-3" type="button">
+    <%= link_to stories_path(tab: "stories") do %>
+      <i class="fas fa-book nav-bar-button"></i>
+    <% end %>
+  </button>
+  <button class="btn btn-primary btn-lg rounded-circle shadow-lg fab-button d-flex flex-column mt-3" type="button">
+    <%= link_to stories_path(tab: "characters") do %>
+      <i class="fas fa-person nav-bar-button"></i>
+    <% end %>
+  </button>
+</div>

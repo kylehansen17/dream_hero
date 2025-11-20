@@ -1,0 +1,64 @@
+.content-wrap {
+
+  .gradient-overlay {
+  /* Position the div to completely cover its relative parent (.banner) */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.7));
+
+
+  z-index: 1;
+}
+  .banner-content {
+
+  width: 100%;
+
+
+  top: 60%;
+
+
+  transform: translateY(-50%);
+
+
+  z-index: 2;
+
+}
+}
+
+.tuskpir-image {
+
+  max-width: 250px;
+  max-height: 250px;
+
+  width: auto !important;
+  height: auto !important;
+}
+
+.tab-content {
+  background: radial-gradient(
+    circle at 75% 25%,
+    #7d78a8 20%,
+    #3b3a50 80%
+  );
+}
+
+body {
+  /* Set minimum height to ensure it covers the entire visible screen */
+  min-height: 100vh;
+  margin: 0;
+
+  background: linear-gradient(
+    /* 1. Set a diagonal angle (e.g., to bottom right) */
+    to bottom,
+
+    /* 2. Lighter color (start) - Represents the "light spot" */
+    rgb(125, 120, 168) 5%, /* Start light in the top-left corner */
+
+    /* 3. Darker color (end) - Represents the shadow */
+    #3b3a50 75%  /* Fade to dark across the rest of the screen */
+  );
+}

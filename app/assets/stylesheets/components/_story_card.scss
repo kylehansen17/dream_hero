@@ -5,14 +5,49 @@
     align-items: center;        /* vertically center items */
 }
 
+.turbo-progress-bar {
+  background-color: black;
+}
+
 .card-product {
   overflow: hidden;
   height: 100%;
-  background: white;
+  background: #27233b;
   border-radius: 16px;
   box-shadow: 0 0 15px rgba(0,0,0,0.2);
   display: flex;
   align-items: center;
+}
+
+.card {
+  --bs-card-bg: #000000;
+  transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.tab-label {
+  /* Replace #f0f0f0 with your desired color (e.g., #3498db for blue) */
+  background-color: #38115a;
+
+  /* Ensure the text is visible against the new background */
+  color: white;
+
+  /* Optional: Add padding/flex properties to control size and spacing */
+  flex-grow: 1; /* Makes them evenly divide the space */
+  text-align: center;
+  padding: 10px 0;
+  cursor: pointer;
+
+
+}
+
+.tab-label:hover {
+    background: #463258;
+  }
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
 }
 
 .card-product img {
@@ -24,17 +59,19 @@
 }
 
 .card-product h2 {
-  font-size: 16px;
+  font-size: 26px;
   font-weight: bold;
-  margin: 0;
+  margin: 4;
+  color: white;
 }
 
 .card-product p {
-  font-size: 12px;
+  font-size: 17px;
   line-height: 1.4;
   opacity: .7;
   margin-bottom: 0;
   margin-top: 8px;
+  color: white;
 }
 
 .card-product .card-product-infos {
@@ -50,7 +87,7 @@
   background-size: cover;
   background-position: center;
   height: 250px;
-  width: 350px;
+  width: 750px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -62,7 +99,12 @@
   box-shadow: 0 0 15px rgba(0,0,0,0.2);
 }
 
-
+.card-img-fixed {
+  height: 400px; /* Increased from 200px to 400px for a "poster" look */
+  width: 100%;
+  object-fit: cover;
+  transition: transform 0.2s; /* Optional: smooth zoom later */
+}
 // Smallest device
 @media (min-width: 100px) and (max-width: 575px) {
   .cards {
