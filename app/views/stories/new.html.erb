@@ -22,23 +22,21 @@
               <%# <div class="tab-3">
             <%#label for="tab3-3">Character</label>
             <%#input id="tab3-3" name="tabs-three" type="radio"> %>
-
               <%= f.input :character,
       collection: current_user.characters,
       include_blank: false,
       label: "Do you have a character?",
       selected: @story.character&.id %>
-
             </div>
           </div>
           <%# = link_to "Or create a new character", new_character_path, class: 'btn btn-primary' %>
           <div class="button-row d-grid justify-content-center gap-4 mt-4">
-            <div data-spin-target="buttonContainer" class="order-2">
+            <div data-spin-target="buttonContainer" class="order-1">
               <%= f.submit "Step into your story", class: 'btn btn-primary rounded-pill' %>
             </div>
           <% end %>
           <!-- Button trigger modal -->
-          <button type="button" class="btn btn-warning order-1 rounded-pill" data-bs-toggle="modal" data-bs-target="#characterModal">Create a new character</button>
+          <button type="button" class="btn order-2 rounded-pill" style="background-color: purple" data-bs-toggle="modal" data-bs-target="#characterModal">Create a new character</button>
         </div>
       </div>
     </div>

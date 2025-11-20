@@ -11,14 +11,18 @@
   background-size: cover;
   background-position: center;
   padding: 150px 0;
-  background-image: image-url("castle_tunnel.jpg");
+  background-image: linear-gradient(to top,rgb(100, 95, 134) 30%, rgba(0, 0, 0, 0) 60%),
+  image-url("castle_tunnel.jpg");
 }
 .banner-show-character {
   height: 300px;
   background-size: cover;
   background-position: center;
   padding: 150px 0;
-  background-image: image-url("character_image.jpg");
+  background-image: linear-gradient(to top,rgb(100, 95, 134) 30%, rgba(0, 0, 0, 0) 60%),
+  image-url("character_image.jpg");
+  font-size: 50px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 .banner::before {
   height: 500px;
