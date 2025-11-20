@@ -22,7 +22,7 @@
               <%# <div class="tab-3">
             <%#label for="tab3-3">Character</label>
             <%#input id="tab3-3" name="tabs-three" type="radio"> %>
-              <%= f.input :character, collection: current_user.characters, include_blank: false, label: "Do you have a character?" %>
+              <%= f.input :character, selected: @story.character.id, collection: current_user.characters, include_blank: false, label: "Do you have a character?" %>
             </div>
           </div>
           <%# = link_to "Or create a new character", new_character_path, class: 'btn btn-primary' %>

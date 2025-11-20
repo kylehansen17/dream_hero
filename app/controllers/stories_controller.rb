@@ -42,7 +42,14 @@ class StoriesController < ApplicationController
 
   def new
     @story = Story.new
-    @character = Character.new
+    character_id = params[:character_id]
+    if character_id.present?
+      character = Character.find_by(id: character_id)
+      @story.character = character if character.present?
+      @character = Character.new
+    else
+      @character = Character.new
+    end
   end
 
   def create
