@@ -50,7 +50,7 @@
   background-size: cover;
   background-position: center;
   height: 250px;
-  width: 350px;
+  width: 750px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -62,7 +62,12 @@
   box-shadow: 0 0 15px rgba(0,0,0,0.2);
 }
 
-
+.card-img-fixed {
+  height: 400px; /* Increased from 200px to 400px for a "poster" look */
+  width: 100%;
+  object-fit: cover;
+  transition: transform 0.2s; /* Optional: smooth zoom later */
+}
 // Smallest device
 @media (min-width: 100px) and (max-width: 575px) {
   .cards {
