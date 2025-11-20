@@ -75,21 +75,22 @@ class StoriesController < ApplicationController
     @story.update(name: title_response.content)
 
   # Generate the image
-image = RubyLLM.paint(
-  "Illustration for the story titled #{@story.name} about #{@story.theme} featuring #{@story.character.name}, in an engaging style suitable for ages #{@story.age}.",
-  model: "imagen-4.0-generate-preview-06-06"
-)
-filename = "#{@story.name.parameterize}-illustration.png"
-image_io = StringIO.new(image.to_blob)
+# image = RubyLLM.paint(
+#   "Illustration for the story titled #{@story.name} about #{@story.theme} featuring #{@story.character.name}, in an engaging style suitable for ages #{@story.age}.",
+#   model: "imagen-4.0-generate-preview-06-06"
+# )
+# filename = "#{@story.name.parameterize}-illustration.png"
+# image_io = StringIO.new(image.to_blob)
 
-    @story.image.attach(
-    io: image_io,
-    filename: filename,
-    content_type: image.mime_type || 'image/png' # Use detected MIME type or default
-  )
+#     @story.image.attach(
+#     io: image_io,
+#     filename: filename,
+#     content_type: image.mime_type || 'image/png' # Use detected MIME type or default
+#   )
 
+    GenerateStoryImageJob.perform_later(@story.id)
 
-  redirect_to chat_path(chat)
+   redirect_to chat_path(chat)
     else
       render :new, status: :unprocessable_entity
     end
