@@ -1,3 +1,6 @@
+require 'ruby_llm/schema'
+include RubyLLM::Helpers
+
 class StoriesController < ApplicationController
 
   def index
@@ -56,13 +59,14 @@ class StoriesController < ApplicationController
 
     llm_response = client.ask("Start the story.")
       assistant_message = llm_response.content
+
       chat.messages.create!(
       role: "assistant",
       content: assistant_message
     )
     summary_prompt = summarize(assistant_message)
     summary_client = RubyLLM.chat.with_instructions([
-      { role: "system", content: summary_prompt, temperature: 0.9 }
+      { role: "system", content: summary_prompt, temperature: 0.7 }
     ])
     summary_response = summary_client.ask("Summarize the story")
     @story.update(summary: summary_response.content)
@@ -116,17 +120,43 @@ class StoriesController < ApplicationController
     Occupation: #{story.character.occupation}.
     Likes: #{story.character.likes}.
 
-    Create a bedtime story in **5 blocks**, each block exactly 8 lines.
-    After each block, stop and provide **three choices**:
-    A (display the choice)
-    B (display the choice)
-    C (display the choice)
+    Create a bedtime story that is divided into exactly 5 blocks.
 
-    Output in Markdown with:
-    - story_content
-    A: (display the path information here)
-    B: (display the path information here)
-    C: (display the path information here)
+    Each block must follow all of these rules:
+
+    1. Story must contain exactly 8 lines
+      - Each line must end with a newline
+      - No extra blank lines
+      - No numbering (no “Block 1”, “1.”, “Line 1”, etc.)
+      - Pure story text only
+    2. After the 8 lines, provide exactly three choices (A, B, C)
+      - Each choice must be exactly 1 sentence
+      - The key names must be exactly:
+        - "a" for choice A
+        - "b" for choice B
+        - "c" for choice C
+    3. The entire output for each block MUST BE JSON FORMAT, VALID JSON ONLY, JSON with the following structure:
+      {
+        "story": "8 lines of story content here\nline 2\nline 3\nline 4\nline 5\nline 6\nline 7\nline 8",
+        "a": "Sentence describing option A.",
+        "b": "Sentence describing option B.",
+        "c": "Sentence describing option C."
+      }
+
+    person_schema = schema "PersonData", description: "A person object" do
+  string :name, description: "Person's full name"
+  number :age
+  boolean :active, required: false
+
+  object :address do
+    string :street
+    string :city
+  end
+
+  array :tags, of: :string
+end
+
+puts person_schema.to_json
   PROMPT
   end
 end

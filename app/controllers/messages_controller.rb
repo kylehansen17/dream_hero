@@ -15,7 +15,6 @@ class MessagesController < ApplicationController
           prompt = instructions
         end
         llm_response = @chat.with_instructions(prompt).ask(@message.content)
-
           Message.create!(
       role: "assistant",
       content: llm_response.content,
@@ -51,20 +50,29 @@ class MessagesController < ApplicationController
     You are a master storyteller who creates bedtime stories for children.
     The listener is #{@story.age} years old.
     The theme is #{@story.theme}.
-    Make up characters on your own.
 
-    Tell a bedtime story in **5 blocks**, each block exactly **8 lines**.
-    After each block, stop and provide **three branching paths**:
-    - path_a
-    - path_b
-    - path_c
+    Continue the #{@story} that is divided into exactly 5 blocks.
 
-    Output MUST be valid Markdown with the fields:
-    - NO BLOCK NUMBER
-    - story_content
-    - A (display 1 sentence option only)
-    - B (display 1 sentence option only)
-    - C (display 1 sentence option only)
+    Each block must follow all of these rules:
+
+    1. Story must contain exactly 8 lines
+      - Each line must end with a newline
+      - No extra blank lines
+      - No numbering (no “Block 1”, “1.”, “Line 1”, etc.)
+      - Pure story text only
+    2. After the 8 lines, provide exactly three choices (A, B, C)
+      - Each choice must be exactly 1 sentence
+      - The key names must be exactly:
+        - "a" for choice A
+        - "b" for choice B
+        - "c" for choice C
+    3. The entire output for each block MUST BE JSON FORMAT, VALID JSON ONLY, JSON with the following structure:
+      {
+        "story": "8 lines of story content here\nline 2\nline 3\nline 4\nline 5\nline 6\nline 7\nline 8",
+        "a": "Sentence describing option A.",
+        "b": "Sentence describing option B.",
+        "c": "Sentence describing option C."
+      }
   PROMPT
 
   "#{story_context}\n#{base_prompt}"
