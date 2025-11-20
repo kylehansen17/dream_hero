@@ -8,13 +8,15 @@
           <div class="card-product row align-items-center" style="max-width:900px;">
 
 
-  <%= image_tag url_for(@story.image), class: "img-fluid" %>
+  <div class="col-6">
+    <%= image_tag url_for(@story.image), class: "img-fluid" %>
+    </div>
 
 
-          <p><%= @story.summary || "No story content yet." %></p>
             <div class="card-product-infos col-md-6">
-              <h2><%= @story.name %></h2>
               <!-- <p><%= @story.summary || "No story content yet." %></p> -->
+              <h2><%= @story.name %></h2>
+          <p><%= @story.summary || "No story content yet." %></p>
             </div>
           </div>
   </div>
