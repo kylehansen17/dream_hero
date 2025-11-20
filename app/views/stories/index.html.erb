@@ -1,17 +1,36 @@
-<div class="content-wrap">
-  <div class="banner"
-  data-stories-image=" <%= asset_path 'castle_tunnel.jpg' %>"
-  data-characters-image=" <%= asset_path 'lantern.jpg' %>">
-  </div>
+<div class="content-wrap"
+     data-controller="banner"
+     data-banner-stories-image-value="<%= asset_path 'castle_tunnel.jpg' %>"
+     data-banner-characters-image-value="<%= asset_path 'lantern.jpg' %>">
+
+  <div class="banner" data-banner-target="banner"></div>
+
   <div class="tabs">
-    <!-- Tab buttons at the top -->
+
+    <!-- Radio Inputs -->
+    <input type="radio"
+           id="tab2-1"
+           name="switch-tab"
+           data-banner-target="tabStories"
+           data-action="change->banner#switch"
+           checked>
+
+    <input type="radio"
+           id="tab2-2"
+           name="switch-tab"
+           data-banner-target="tabCharacters"
+           data-action="change->banner#switch">
+
+    <!-- Labels -->
     <div class="tab-buttons d-flex w-100">
       <label for="tab2-1" class="tab-label">Stories</label>
       <label for="tab2-2" class="tab-label">Characters</label>
     </div>
-    <!-- Hidden radio buttons for tab control -->
-    <input id="tab2-1" name="tabs-two" type="radio" checked hidden>
-    <input id="tab2-2" name="tabs-two" type="radio" hidden>
+  </div>
+
+</div>
+
+
     <!-- Tab 1 content -->
     <div class="tab-content" id="content-tab1">
       <div class="container d-flex flex-column align-items-center my-5">
@@ -19,9 +38,12 @@
         <div class="main-story container my-4 d-flex justify-content-center">
           <%= link_to story_path(@front_story), class: "text-decoration-none" do %>
             <div class="card-product row align-items-center" style="max-width: 900px; width: 100%;">
-              <div class="col-6">
-                <%= image_tag "fantasy_book.avif", class: "img-fluid rounded card-product-img" %>
-              </div>
+              <% if !@front_story.image %>
+              <%= image_tag "fantasy_book.avif", class: "img-fluid" %>
+              <% else %>
+
+                <%= image_tag url_for(@front_story.image), class: "img-fluid" %>
+              <% end %>
               <div class="col-6 card-product-infos">
                 <h2><%= @front_story.name %></h2>
                 <p><%= @front_story.summary || "No story content yet." %></p>
@@ -29,13 +51,20 @@
             </div>
           <% end %>
         </div>
+        <div>
+          <h4 class="text-center w-100">Your Past Stories</h4>
+        </div>
         <div class="container-fluid my-4">
           <div class="row align-items-center justify-content-start">
             <div class="cards col-12 d-flex flex-wrap justify-content-center p-0">
               <% @feature_stories.each do |story| %>
                 <%= link_to story_path(story), class: "text-decoration-none" do %>
-                  <div class="card-category col-12 col-sm-6 col-md-4 text-center"
-                 style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= asset_path 'fantasy_book.avif' %>)">
+                  <div class="card-category col-12 col-sm-6 col-md-4 text-center">
+                    <% if story.image.attached? %>
+                    <%= image_tag story.image, class: "img-fluid rounded mb-2", alt: story.name %>
+                    <% else %>
+                    <%= image_tag "fantasy_book.avif", class: "img-fluid rounded mb-2", alt: "Placeholder" %>
+                    <% end %>
                     <%= story.name %>
                   </div>
                 <% end %>
@@ -53,11 +82,6 @@
       </div>
     </div>
   </div>
-  <footer class="footer bg-dark text-white py-3 mt-auto">
-    <div class="container text-center">
-      <%= link_to stories_path do %>
-        <i class="fa-solid fa-house me-2"></i>
-      <% end %>
-      | &copy; <%= Time.current.year %> Kokai Soundworks
-    </div>
-  </footer>
+  <div>
+    <%= render "layouts/final_bottom_navbar" %>
+  </div>

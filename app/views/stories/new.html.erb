@@ -3,7 +3,7 @@
   <h1 class="text-center">A New Tale Begins...</h1>
   <div class="container d-flex justify-content-center">
     <div class="tabs" data-controller="stories">
-      <%= simple_form_for @story do |f| %>
+      <%= simple_form_for @story, html: { data: { controller: "spin" }} do |f| %>
         <div class="story-form-card">
           <div class="row g-4 mb-4 justify-content-center">
             <%# CARD 1: AGE %>
@@ -27,7 +27,9 @@
           </div>
           <%# = link_to "Or create a new character", new_character_path, class: 'btn btn-primary' %>
           <div class="button-row d-grid justify-content-center gap-4 mt-4">
-            <%= f.submit "Step into your story", class: 'btn btn-primary order-2 rounded-pill' %>
+            <div data-spin-target="buttonContainer" class="order-2">
+              <%= f.submit "Step into your story", class: 'btn btn-primary rounded-pill' %>
+            </div>
           <% end %>
           <!-- Button trigger modal -->
           <button type="button" class="btn btn-warning order-1 rounded-pill" data-bs-toggle="modal" data-bs-target="#characterModal">Create a new character</button>
@@ -81,5 +83,4 @@
     </div>
   </div>
 </div>
-</div>
-</div>
+<%= render "layouts/final_bottom_navbar" %>
