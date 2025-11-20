@@ -29,6 +29,9 @@
             </div>
           <% end %>
         </div>
+        <div>
+          <h4 class="text-center w-100">Your Past Stories</h4>
+        </div>
         <div class="container-fluid my-4">
           <div class="row align-items-center justify-content-start">
             <div class="cards col-12 d-flex flex-wrap justify-content-center p-0">
@@ -53,11 +56,6 @@
       </div>
     </div>
   </div>
-  <footer class="footer bg-dark text-white py-3 mt-auto">
-    <div class="container text-center">
-      <%= link_to stories_path do %>
-        <i class="fa-solid fa-house me-2"></i>
-      <% end %>
-      | &copy; <%= Time.current.year %> Kokai Soundworks
-    </div>
-  </footer>
+  <div>
+    <%= render "layouts/final_bottom_navbar" %>
+  </div>

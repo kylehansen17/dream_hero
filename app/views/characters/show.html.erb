@@ -17,13 +17,6 @@
     <%= link_to "Use this character...", root_path, class: "btn btn-success rounded-pill me-2" %>
   </div>
 </div>
-<footer class="footer bg-dark text-white py-3">
-  <div class="container text-center">
-    <%= link_to root_path do %>
-      <i class="fa-solid fa-house me-2"></i>
-    <% end %>
-    | &copy;
-    <%= Time.current.year %>
-    Kokai Soundworks
-  </div>
-</footer>
+<div>
+  <%= render "layouts/final_bottom_navbar" %>
+</div>

@@ -1,0 +1,19 @@
+    .fab-container {
+        position: fixed;
+        bottom: 20px; /* Adjust as needed for vertical position */
+        right: 20px;  /* Adjust as needed for horizontal position */
+        z-index: 1000; /* Ensure it stays on top of other content */
+    }
+
+    .fab-button {
+        width: 60px; /* Adjust size as needed */
+        height: 60px; /* Adjust size as needed */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem; /* Adjust icon size */
+    }
+
+    .fas {
+      color:white;
+    }
