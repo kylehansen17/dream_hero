@@ -66,7 +66,7 @@ class MessagesController < ApplicationController
         - "a" for choice A
         - "b" for choice B
         - "c" for choice C
-    3. The entire output for each block MUST BE JSON FORMAT, VALID JSON ONLY, JSON with the following structure:
+    3. The entire output for each block MUST BE JSON FORMAT, VALID JSON ONLY, no exceptions, with the following structure:
       {
         "story": "8 lines of story content here\nline 2\nline 3\nline 4\nline 5\nline 6\nline 7\nline 8",
         "a": "Sentence describing option A.",
