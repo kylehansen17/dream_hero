@@ -1,17 +1,36 @@
-<div class="content-wrap">
-  <div class="banner"
-  data-stories-image=" <%= asset_path 'castle_tunnel.jpg' %>"
-  data-characters-image=" <%= asset_path 'lantern.jpg' %>">
-  </div>
+<div class="content-wrap"
+     data-controller="banner"
+     data-banner-stories-image-value="<%= asset_path 'castle_tunnel.jpg' %>"
+     data-banner-characters-image-value="<%= asset_path 'lantern.jpg' %>">
+
+  <div class="banner" data-banner-target="banner"></div>
+
   <div class="tabs">
-    <!-- Tab buttons at the top -->
+
+    <!-- Radio Inputs -->
+    <input type="radio"
+           id="tab2-1"
+           name="switch-tab"
+           data-banner-target="tabStories"
+           data-action="change->banner#switch"
+           checked>
+
+    <input type="radio"
+           id="tab2-2"
+           name="switch-tab"
+           data-banner-target="tabCharacters"
+           data-action="change->banner#switch">
+
+    <!-- Labels -->
     <div class="tab-buttons d-flex w-100">
       <label for="tab2-1" class="tab-label">Stories</label>
       <label for="tab2-2" class="tab-label">Characters</label>
     </div>
-    <!-- Hidden radio buttons for tab control -->
-    <input id="tab2-1" name="tabs-two" type="radio" checked hidden>
-    <input id="tab2-2" name="tabs-two" type="radio" hidden>
+  </div>
+
+</div>
+
+
     <!-- Tab 1 content -->
     <div class="tab-content" id="content-tab1">
       <div class="container d-flex flex-column align-items-center my-5">
