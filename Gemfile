@@ -57,6 +57,8 @@ gem "ruby_llm", "~> 1.6.4"
 gem "kramdown"
 gem "rouge"
 gem "kramdown-parser-gfm"
+ gem "cloudinary"
+  gem "activestorage-cloudinary-service"
 
 group :development, :test do
   gem "dotenv-rails"
@@ -80,4 +82,5 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem "devise"
+
 end
