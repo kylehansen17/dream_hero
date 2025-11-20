@@ -5,15 +5,18 @@
     <h1 class="text-center text-white">Continue...?</h1>
   </div>
   <div class="main-story container my-4 d-flex justify-content-center">
-    <div class="card-product row align-items-center" style="max-width:900px;">
-      <div class="col-md-6">
-        <%= image_tag "fantasy_book.avif", class: "img-fluid rounded card-product-img" %>
-      </div>
-      <div class="card-product-infos col-md-6">
-        <h2><%= @story.name %></h2>
-        <p><%= @story.summary || "No story content yet." %></p>
-      </div>
-    </div>
+          <div class="card-product row align-items-center" style="max-width:900px;">
+
+
+  <%= image_tag url_for(@story.image), class: "img-fluid" %>
+
+
+          <p><%= @story.summary || "No story content yet." %></p>
+            <div class="card-product-infos col-md-6">
+              <h2><%= @story.name %></h2>
+              <!-- <p><%= @story.summary || "No story content yet." %></p> -->
+            </div>
+          </div>
   </div>
   <div class="button-container d-flex justify-content-evenly">
     <%= link_to "Re-read this story", chat_path(@story), class: "btn btn-success rounded-pill me-2" %>
