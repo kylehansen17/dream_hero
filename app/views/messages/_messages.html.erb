@@ -7,8 +7,11 @@
     </div>
   <% elsif message.role == "assistant" %>
     <div class="d-flex justify-content-start mb-5">
+      <%= raw(render_markdown(JSON.parse(message.content)["story"])) %>
       <div class="px-3 pb-0 pt-3">
-        <%= raw(render_markdown(message.content)) %>
+        <%= raw(render_markdown(JSON.parse(message.content)["a"])) %>
+        <%= raw(render_markdown(JSON.parse(message.content)["b"])) %>
+        <%= raw(render_markdown(JSON.parse(message.content)["c"])) %>
       </div>
     </div>
   <% end %>
