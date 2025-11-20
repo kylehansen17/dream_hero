@@ -30,61 +30,66 @@
 
 </div>
 
+<div class="tab-content" id="content-tab1">
+  <div class="container d-flex flex-column align-items-center my-5">
 
-    <!-- Tab 1 content -->
-    <div class="tab-content" id="content-tab1">
-      <div class="container d-flex flex-column align-items-center my-5">
-        <h4 class="text-center w-100">Pick up where you left off...</h4>
-        <div class="main-story container my-4 d-flex justify-content-center">
-          <%= link_to story_path(@front_story), class: "text-decoration-none" do %>
-            <div class="card-product row align-items-center" style="max-width: 900px; width: 100%;">
+    <h4 class="text-center w-100 mb-4">Pick up where you left off...</h4>
+    <div class="main-story container mb-5 d-flex justify-content-center">
+      <%= link_to story_path(@front_story), class: "text-decoration-none w-100", style: "max-width: 900px;" do %>
+        <div class="card-product row align-items-center mx-0 shadow-sm">
+          <div class="col-6 p-0 h-100">
+            <% if @front_story.image.attached? %>
+               <%= image_tag @front_story.image,
+                   class: "img-fluid w-100 h-100",
+                   style: "object-fit: cover; min-height: 300px;",
+                   alt: @front_story.name %>
+            <% end %>
+          </div>
+          <div class="col-6 card-product-infos p-4">
+            <h4 class="text-dark"><%= @front_story.name %></h4>
+            <p class="text-muted small"><%= @front_story.summary || "No story content yet." %></p>
+          </div>
+        </div>
+      <% end %>
+    </div>
 
+    <div>
+      <h4 class="text-center w-100 mb-4">Your Past Stories</h4>
+    </div>
 
-                <div class="col-6">
-                  <%= image_tag url_for(@front_story.image), class: "img-fluid" %>
-                  </div>
+    <div class="container my-4">
+      <div class="row justify-content-center">
 
-              <div class="col-6 card-product-infos">
-                <h2><%= @front_story.name %></h2>
-                <p><%= @front_story.summary || "No story content yet." %></p>
+        <% @feature_stories.each do |story| %>
+
+          <div class="col-12 col-md-6 mb-5">
+
+            <%= link_to story_path(story), class: "text-decoration-none" do %>
+              <div class="card-category text-center h-100">
+
+                <% if story.image.attached? %>
+                  <%= image_tag story.image, class: "img-fluid rounded mb-2 card-img-fixed shadow-sm", alt: story.name %>
+                <% else %>
+                  <%= image_tag "fantasy_book.avif", class: "img-fluid rounded mb-2 card-img-fixed shadow-sm", alt: "Placeholder" %>
+                <% end %>
+
+                <div class="story-title mt-3 text-dark">
+                  <h6 class="text-uppercase fw-bold small" style="letter-spacing: 1px;">
+                    <%= story.name %>
+                  </h6>
+                </div>
+
               </div>
-            </div>
-          <% end %>
-        </div>
-        <div>
-          <h4 class="text-center w-100">Your Past Stories</h4>
-        </div>
-
-        <div class="container-fluid my-4">
-  <div class="row align-items-center justify-content-start">
-    <div class="cards col-12 d-flex flex-wrap justify-content-center p-0">
-
-      <% @feature_stories.each do |story| %>
-        <%= link_to story_path(story), class: "text-decoration-none" do %>
-
-          <div class="card-category col-12 col-sm-6 col-md-4 text-center">
-
-            <% if story.image.attached? %>
-              <%= image_tag url_for(story.image), class: "img-fluid rounded mb-2", alt: story.name %>
-            <% else %>
-              <%= image_tag "fantasy_book.avif", class: "img-fluid rounded mb-2", alt: "Placeholder" %>
             <% end %>
 
-            <div class="story-title mt-2">
-              <%= story.name %>
-            </div>
-
           </div>
-
         <% end %>
-      <% end %>
-
-    </div>
-  </div>
-</div>
 
       </div>
     </div>
+
+  </div>
+</div>
     <!-- Tab 2 content -->
     <div class="tab-content" id="content-tab2">
       <div class="container d-flex flex-column align-items-center my-5">
