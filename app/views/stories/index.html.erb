@@ -44,6 +44,11 @@
                    class: "img-fluid w-100 h-100",
                    style: "object-fit: cover; min-height: 300px;",
                    alt: @front_story.name %>
+            <% else %>
+               <%= image_tag "fantasy_book.avif",
+                   class: "img-fluid w-100 h-100",
+                   style: "object-fit: cover; min-height: 300px;",
+                   alt: "Placeholder" %>
             <% end %>
           </div>
           <div class="col-6 card-product-infos p-4">
