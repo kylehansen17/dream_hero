@@ -60,15 +60,15 @@ class StoriesController < ApplicationController
     @story.user = current_user
     if @story.save
       chat = @story.chats.create!
-      system_prompt = instructions(@story)
+      system_prompt = @story.base_instructions
       client = RubyLLM.chat.with_instructions([
       { role: "system", content: system_prompt, temperature: 0.9 }
     ])
 
-    llm_response = client.ask("Start the story.")
-      assistant_message = llm_response.content
+    llm_response = client.with_schema(StoryMessageSchema).ask("Start the story by writing the first story block.")
+      assistant_message = llm_response.content.to_json
 
-      chat.messages.create!(
+    chat.messages.create!(
       role: "assistant",
       content: assistant_message
     )
@@ -125,56 +125,5 @@ class StoriesController < ApplicationController
 
   def story_params
     params.require(:story).permit(:name, :theme, :age, :character)
-  end
-
-  def instructions(story)
-  <<~PROMPT
-    You are a master storyteller.
-
-    The listener is #{story.age} years old.
-    The theme is "#{story.theme}".
-    Include a character using the following:
-    Name:#{story.character.name}.
-    Occupation: #{story.character.occupation}.
-    Likes: #{story.character.likes}.
-
-    Create a bedtime story that is divided into exactly 5 blocks.
-
-    Each block must follow all of these rules:
-
-    1. Story must contain exactly 8 lines
-      - Each line must end with a newline
-      - No extra blank lines
-      - No numbering (no “Block 1”, “1.”, “Line 1”, etc.)
-      - Pure story text only
-    2. After the 8 lines, provide exactly three choices (A, B, C)
-      - Each choice must be exactly 1 sentence
-      - The key names must be exactly:
-        - "a" for choice A
-        - "b" for choice B
-        - "c" for choice C
-    3. The entire output for each block MUST BE JSON FORMAT, VALID JSON ONLY, no exceptions, with the following structure:
-      {
-        "story": "8 lines of story content here\nline 2\nline 3\nline 4\nline 5\nline 6\nline 7\nline 8",
-        "a": "Sentence describing option A.",
-        "b": "Sentence describing option B.",
-        "c": "Sentence describing option C."
-      }
-
-    person_schema = schema "PersonData", description: "A person object" do
-  string :name, description: "Person's full name"
-  number :age
-  boolean :active, required: false
-
-  object :address do
-    string :street
-    string :city
-  end
-
-  array :tags, of: :string
-end
-
-puts person_schema.to_json
-  PROMPT
   end
 end
