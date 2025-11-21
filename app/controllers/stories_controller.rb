@@ -8,7 +8,7 @@ class StoriesController < ApplicationController
     @front_story = Story.last
     @feature_stories = Story.where.not(id: @front_story.id)
     @character = Character.new
-    @characters = Character.all
+    @characters = current_user.characters.all
   end
 
   def show
