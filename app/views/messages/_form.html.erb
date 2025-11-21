@@ -1,4 +1,4 @@
 <%= simple_form_for [chat, message] do |f| %>
-  <%= f.input :content, label: "How will you proceed?", required: true, as: :radio_buttons, collection: [["Path A", JSON.parse(chat.messages.last.content)["a"]],["Path B", JSON.parse(chat.messages.last.content)["b"]],["Path C", JSON.parse(chat.messages.last.content)["c"]]] %>
+  <%= f.input :content, label: "How will you proceed?", required: true, as: :radio_buttons, collection: [["Path A", JSON.parse(chat.messages.last.content)["option_a"]],["Path B", JSON.parse(chat.messages.last.content)["option_b"]],["Path C", JSON.parse(chat.messages.last.content)["option_c"]]] %>
   <%= f.button :submit, 'Go', class: 'btn btn-primary' %>
 <% end %>

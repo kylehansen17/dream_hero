@@ -60,15 +60,15 @@ class StoriesController < ApplicationController
     @story.user = current_user
     if @story.save
       chat = @story.chats.create!
-      system_prompt = instructions(@story)
+      system_prompt = @story.base_instructions
       client = RubyLLM.chat.with_instructions([
       { role: "system", content: system_prompt, temperature: 0.9 }
     ])
 
-    llm_response = client.ask("Start the story.")
-      assistant_message = llm_response.content
+    llm_response = client.with_schema(StoryMessageSchema).ask("Start the story by writing the first story block.")
+      assistant_message = llm_response.content.to_json
 
-      chat.messages.create!(
+    chat.messages.create!(
       role: "assistant",
       content: assistant_message
     )
@@ -125,50 +125,5 @@ class StoriesController < ApplicationController
 
   def story_params
     params.require(:story).permit(:name, :theme, :age, :character)
-  end
-
-  def instructions(story)
-  <<~PROMPT
-    You are a master storyteller.
-
-    The listener is #{story.age} years old.
-    The theme is "#{story.theme}".
-    Include a character using the following:
-    Name:#{story.character.name}.
-    Occupation: #{story.character.occupation}.
-    Likes: #{story.character.likes}.
-
-    Create a bedtime story that is divided into exactly 5 blocks.
-
-    Each block must follow all of these rules:
-
-    1. Story must contain exactly 8 lines
-      - Each line must end with a newline
-      - No extra blank lines
-      - No numbering (no “Block 1”, “1.”, “Line 1”, etc.)
-      - Pure story text only
-    2. After the 8 lines, provide exactly three choices (A, B, C)
-      - Each choice must be exactly 1 sentence
-      - The key names must be exactly:
-        - "a" for choice A
-        - "b" for choice B
-        - "c" for choice C
-    3. The entire output for each block MUST BE JSON FORMAT, VALID JSON ONLY, no exceptions, with the following structure:
-      {
-        "story": "8 lines of story content here\nline 2\nline 3\nline 4\nline 5\nline 6\nline 7\nline 8",
-        "a": "Sentence describing option A.",
-        "b": "Sentence describing option B.",
-        "c": "Sentence describing option C."
-      }
-    Here is an example of how the output should be formatted:
-    """
-    "{\n  \"story\": \"In a small underwater town, Squidward the cashier woke up with a big smile.\\nToday, he decided to try something new and exciting.\\nHe took out his shiny clarinet and started playing a sweet tune.\\nSuddenly, a magical bubble floated into the shop and shimmered brightly.\\nThe bubble whispered, \\\"Follow me for an adventure!\\\"\\nSquidward grabbed his coat and headed after it excitedly.\\nHe wondered what wonderful adventures awaited him today.\\nAs he stepped outside, the bubble grew bigger and glowed even more.\\n\",\n  \"a\": \"A path appeared leading to a sparkling underwater castle.\",\n  \"b\": \"The bubble turned into a friendly dolphin who wanted to play.\",\n  \"c\": \"A treasure map floated out of the bubble for him to see.\"\n}"
-    """
-
-  array :tags, of: :string
-end
-
-puts person_schema.to_json
-  PROMPT
   end
 end
