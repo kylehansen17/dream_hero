@@ -160,16 +160,10 @@ class StoriesController < ApplicationController
         "b": "Sentence describing option B.",
         "c": "Sentence describing option C."
       }
-
-    person_schema = schema "PersonData", description: "A person object" do
-  string :name, description: "Person's full name"
-  number :age
-  boolean :active, required: false
-
-  object :address do
-    string :street
-    string :city
-  end
+    Here is an example of how the output should be formatted:
+    """
+    "{\n  \"story\": \"In a small underwater town, Squidward the cashier woke up with a big smile.\\nToday, he decided to try something new and exciting.\\nHe took out his shiny clarinet and started playing a sweet tune.\\nSuddenly, a magical bubble floated into the shop and shimmered brightly.\\nThe bubble whispered, \\\"Follow me for an adventure!\\\"\\nSquidward grabbed his coat and headed after it excitedly.\\nHe wondered what wonderful adventures awaited him today.\\nAs he stepped outside, the bubble grew bigger and glowed even more.\\n\",\n  \"a\": \"A path appeared leading to a sparkling underwater castle.\",\n  \"b\": \"The bubble turned into a friendly dolphin who wanted to play.\",\n  \"c\": \"A treasure map floated out of the bubble for him to see.\"\n}"
+    """
 
   array :tags, of: :string
 end
