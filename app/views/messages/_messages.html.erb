@@ -1,18 +1,20 @@
-<% messages.each do |message| %>
-  <% if message.role == "user" %>
-    <div class="d-flex justify-content-end mb-2">
-      <div class="bg-white px-3 pb-0 pt-3 rounded-pill">
-        <%= raw(render_markdown(message.content)) %>
+<div class="ml-4 display-flex text-center">
+  <% messages.each do |message| %>
+    <% if message.role == "user" %>
+      <div class="d-flex justify-content-end mb-2">
+        <div class="d-none">
+          <%= raw(render_markdown(message.content)) %>
+        </div>
       </div>
-    </div>
-  <% elsif message.role == "assistant" %>
-    <div class="d-flex justify-content-start mb-5">
-      <%= raw(render_markdown(JSON.parse(message.content)["story"])) %>
-      <div class="px-3 pb-0 pt-3">
-        <%= raw(render_markdown(JSON.parse(message.content)["option_a"])) %>
-        <%= raw(render_markdown(JSON.parse(message.content)["option_b"])) %>
-        <%= raw(render_markdown(JSON.parse(message.content)["option_c"])) %>
+    <% elsif message.role == "assistant" %>
+      <div class="ml-4">
+        <%= raw(render_markdown(JSON.parse(message.content)["story"])) %>
+        <div class="choices">
+          <%= raw(render_markdown(JSON.parse(message.content)["option_a"])) %>
+          <%= raw(render_markdown(JSON.parse(message.content)["option_b"])) %>
+          <%= raw(render_markdown(JSON.parse(message.content)["option_c"])) %>
+        </div>
       </div>
-    </div>
+    <% end %>
   <% end %>
-<% end %>
+</div>

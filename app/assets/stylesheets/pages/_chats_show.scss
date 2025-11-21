@@ -17,14 +17,16 @@
   // --- GLOBAL STYLES WITHIN BANNER ---
 
   #chat-title {
-    font-size: 50px;
+    font-size: 30px;
     color: white;
+    margin-bottom: 25px;
   }
 
   #main-content {
     display: grid;
     justify-items: center;
     align-content: center;
+    margin: 3px;
   }
 
   // Hides the 'strong' text only within this banner, preventing global conflicts
@@ -43,17 +45,76 @@
   // --- PARAGRAPH STYLES ---
   p {
     color: white;
-
-    // FIX: Using left align is generally better for readability than justify
     text-align: left;
-    max-width: 800px; /* Optional: Limit width for better reading flow */
+    max-width: 800px;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
 
-    // Placeholder for animation (Uncomment and define keyframes when ready)
-    // animation: fadeIn 2s ease-in-out;
+    // 1. Initial State: Hide the element and position it low
+    opacity: 0;
+    transform: translateY(20px);
 
-    // Placeholder for background card
-    // background-color: rgba(0, 0, 0, 0.5);
-    // padding: 1rem;
-    // border-radius: 8px;
+    // 2. Apply Base Animation
+    animation: fadeInSlideUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
   }
+
+  .choices {
+    color: white;
+    text-align: left;
+    max-width: 800px;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+
+    // 1. Initial State: Hide the element and position it low
+    opacity: 0;
+    transform: translateY(20px);
+
+    // 2. Apply Base Animation
+    animation: fadeInSlideUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  }
+
+  #new-message-container {
+    color: white;
+    text-align: left;
+    max-width: 800px;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+
+    // 1. Initial State: Hide the element and position it low
+    opacity: 0;
+    transform: translateY(20px);
+
+    // 2. Apply Base Animation
+    animation: fadeInSlideUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  }
+}
+
+@for $i from 1 through 10 {
+  .banner-chat-show p:nth-child(#{$i}) {
+    // Apply a progressive delay
+    animation-delay: #{$i * 0.3}s;
+  }
+}
+
+.form-check-label {
+  color: white;
+  font-size: 20px;
+}
+
+@keyframes fadeInSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+strong {
+  visibility: hidden;
 }
